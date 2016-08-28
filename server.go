@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"./swapico"
+	"./log"
 )
 
 var chars = []swapico.Character{}
@@ -20,7 +21,8 @@ func membersHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	if r.Method == "GET" {
-		var char = swapico.People()
+		defer log.Un(log.Trace("Character Fetch"))
+		var char = swapico.AllCharacters()
 		j, _ := json.Marshal(char)
 		w.Write(j)
 	}
