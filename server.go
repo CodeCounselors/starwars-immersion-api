@@ -12,13 +12,14 @@ import (
 var chars = []swapico.Character{}
 
 func main() {
-	http.HandleFunc("/members", membersHandler)
+	http.HandleFunc("/characters", membersHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
 func membersHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	if r.Method == "GET" {
 		defer log.Un(log.Trace("Character Fetch"))

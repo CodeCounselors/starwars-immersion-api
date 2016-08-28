@@ -43,11 +43,14 @@ func AllCharacters() *[]Character {
 
 	url := URL + "/people/"
 	var r, everyone = loadPeoplePage([]Character{}, url)
+
+	//TODO: MUX these all at the same time because we know the total #
 	for len(r.Next) > 0  {
 		r, everyone = loadPeoplePage(everyone, r.Next)
 	}
 	return &everyone;
 }
+
 
 func loadPeoplePage(appendTo []Character, url string) (*People, []Character) {
 
